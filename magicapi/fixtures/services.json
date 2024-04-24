@@ -1,0 +1,30 @@
+[
+    {
+    "model": "magicapi.service",
+    "pk": 1,
+    "fields": {
+        "name": "Close-up"
+    }
+},
+{
+    "model": "magicapi.service",
+    "pk": 2,
+    "fields": {
+        "name": "Stage"
+    }
+},
+{
+    "model": "magicapi.service",
+    "pk": 3,
+    "fields": {
+        "name": "Mentalism"
+    }
+},
+{
+    "model": "magicapi.service",
+    "pk": 4,
+    "fields": {
+        "name": "Escapology"
+    }
+}
+]

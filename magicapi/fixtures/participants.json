@@ -1,0 +1,35 @@
+[
+    {
+        "model": "magicapi.participant",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "ismagician": true
+            
+        }
+    },
+    {
+        "model": "magicapi.participant",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "ismagician": true
+        }
+    },
+    {
+        "model": "magicapi.participant",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "ismagician": false
+        }
+    },
+    {
+        "model": "magicapi.participant",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "ismagician": false
+        }
+    }
+    ]

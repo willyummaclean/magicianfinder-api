@@ -1,0 +1,72 @@
+[{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "gob",
+        "first_name": "Gob",
+        "last_name": "Bluth",
+        "email": "gob@bluth.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-10T19:12:13.676Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "ricky",
+        "first_name": "Ricky",
+        "last_name": "Jay",
+        "email": "goat@magicians.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-10T19:12:13.676Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jisie",
+        "first_name": "Jisie",
+        "last_name": "David",
+        "email": "jisie@jisiedavid.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-10T22:48:19.899Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$fHDURJBIASpx$trZS1MWc6YiNe5EYNBap+P+zMAwpNgNbUZH/b9bgvdw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "brenda",
+        "first_name": "Brenda",
+        "last_name": "Long",
+        "email": "brenda@brendalong.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-10-10T22:48:53.984Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
