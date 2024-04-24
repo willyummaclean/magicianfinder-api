@@ -11,6 +11,7 @@ from magicapi.models import MagicianService, Participant, Service
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import PermissionDenied
 
 
 class MagicianServiceSerializer(serializers.ModelSerializer):
@@ -87,44 +88,44 @@ class MagicianServices(ViewSet):
     def update(self, request, pk=None):
         
         magicianservice = MagicianService.objects.get(pk=pk)
-        magicianservice.description = request.data["description"]
-
         participant = Participant.objects.get(user=request.auth.user)
-        magicianservice.participant = participant
 
-        service = Service.objects.get(pk=request.data["service"])
-        magicianservice.service = service
-        magicianservice.save()
+        if magicianservice.magician_id == participant.id :
 
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+            magicianservice.description = request.data["description"]
+            service = Service.objects.get(pk=request.data["service"])
+            magicianservice.service = service
+            magicianservice.save()
 
-    # def destroy(self, request, pk=None):
-    #     """
-    #     @api {DELETE} /products/:id DELETE product
-    #     @apiName DeleteProduct
-    #     @apiGroup Product
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        else:
+            raise PermissionDenied("You are not allowed to update this service.")
+        
 
-    #     @apiHeader {String} Authorization Auth token
-    #     @apiHeaderExample {String} Authorization
-    #         Token 9ba45f09651c5b0c404f37a2d2572c026c146611
 
-    #     @apiParam {id} id Product Id to delete
-    #     @apiSuccessExample {json} Success
-    #         HTTP/1.1 204 No Content
-    #     """
-    #     try:
-    #         product = Product.objects.get(pk=pk)
-    #         product.delete()
+    def destroy(self, request, pk=None):
 
-    #         return Response({}, status=status.HTTP_204_NO_CONTENT)
+        try:
+            magicianservice = MagicianService.objects.get(pk=pk)
+            participant = Participant.objects.get(user=request.auth.user)
 
-    #     except Product.DoesNotExist as ex:
-    #         return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+            if magicianservice.magician_id == participant.id :
+        
+                magicianservice.delete()
 
-    #     except Exception as ex:
-    #         return Response(
-    #             {"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-    #         )
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+            
+            else:
+                raise PermissionDenied("You are not allowed to delete this service.")
+
+        except MagicianService.DoesNotExist as ex:
+            return Response({"message": ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as ex:
+            return Response(
+                {"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
 
     # def list(self, request):
     #     """
