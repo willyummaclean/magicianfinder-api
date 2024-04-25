@@ -127,89 +127,63 @@ class MagicianServices(ViewSet):
                 {"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    # def list(self, request):
-    #     """
-    #     @api {GET} /products GET all products
-    #     @apiName ListProducts
-    #     @apiGroup Product
+    def list(self, request):
+       
+        magicianservices = MagicianService.objects.all()
 
-    #     @apiSuccess (200) {Object[]} products Array of products
-    #     @apiSuccessExample {json} Success
-    #         [
-    #             {
-    #                 "id": 101,
-    #                 "url": "http://localhost:8000/products/101",
-    #                 "name": "Kite",
-    #                 "price": 14.99,
-    #                 "number_sold": 0,
-    #                 "description": "It flies high",
-    #                 "quantity": 60,
-    #                 "created_date": "2019-10-23",
-    #                 "location": "Pittsburgh",
-    #                 "image_path": null,
-    #                 "average_rating": 0,
-    #                 "category": {
-    #                     "url": "http://localhost:8000/productcategories/6",
-    #                     "name": "Games/Toys"
-    #                 }
-    #             }
-    #         ]
-    #     """
-    #     products = Product.objects.all()
+        # Support filtering by category and/or quantity
+        # category = self.request.query_params.get("category", None)
+        # quantity = self.request.query_params.get("quantity", None)
+        # order = self.request.query_params.get("order_by", None)
+        # direction = self.request.query_params.get("direction", None)
+        # store = self.request.query_params.get("store", None)
+        # number_sold = self.request.query_params.get("number_sold", None)
+        # min_price = self.request.query_params.get("min_price", None)
+        # name = self.request.query_params.get("name", None)
+        # location = self.request.query_params.get("location", None)
+        # customer = self.request.query_params.get("customer", None)
 
-    #     # Support filtering by category and/or quantity
-    #     category = self.request.query_params.get("category", None)
-    #     quantity = self.request.query_params.get("quantity", None)
-    #     order = self.request.query_params.get("order_by", None)
-    #     direction = self.request.query_params.get("direction", None)
-    #     store = self.request.query_params.get("store", None)
-    #     number_sold = self.request.query_params.get("number_sold", None)
-    #     min_price = self.request.query_params.get("min_price", None)
-    #     name = self.request.query_params.get("name", None)
-    #     location = self.request.query_params.get("location", None)
-    #     customer = self.request.query_params.get("customer", None)
+        # if order is not None:
+        #     order_filter = order
 
-    #     if order is not None:
-    #         order_filter = order
+        #     if direction is not None:
+        #         if direction == "desc":
+        #             order_filter = f"-{order}"
 
-    #         if direction is not None:
-    #             if direction == "desc":
-    #                 order_filter = f"-{order}"
+        #     products = products.order_by(order_filter)
 
-    #         products = products.order_by(order_filter)
+        # if category is not None:
+        #     products = products.filter(category__id=category)
 
-    #     if category is not None:
-    #         products = products.filter(category__id=category)
+        # if quantity is not None:
+        #     products = products.order_by("-created_date")[: int(quantity)]
 
-    #     if quantity is not None:
-    #         products = products.order_by("-created_date")[: int(quantity)]
+        # if store is not None:
+        #     found_store = Store.objects.get(pk=store)
+        #     products = products.filter(customer=found_store.owner)
 
-    #     if store is not None:
-    #         found_store = Store.objects.get(pk=store)
-    #         products = products.filter(customer=found_store.owner)
+        # if number_sold is not None:
 
-    #     if number_sold is not None:
+        #     def sold_filter(product):
+        #         if product.number_sold >= int(number_sold):
+        #             return True
+        #         return False
 
-    #         def sold_filter(product):
-    #             if product.number_sold >= int(number_sold):
-    #                 return True
-    #             return False
+        #     products = filter(sold_filter, products)
 
-    #         products = filter(sold_filter, products)
+        # if min_price is not None:
+        #     products = products.filter(price__gte=min_price)
 
-    #     if min_price is not None:
-    #         products = products.filter(price__gte=min_price)
+        # if name is not None:
+        #     products = products.filter(name__icontains=name)
 
-    #     if name is not None:
-    #         products = products.filter(name__icontains=name)
+        # if location is not None:
+        #     products = products.filter(location__icontains=location)
 
-    #     if location is not None:
-    #         products = products.filter(location__icontains=location)
+        # if customer is not None:
+        #     products = products.filter(customer=customer)
 
-    #     if customer is not None:
-    #         products = products.filter(customer=customer)
-
-    #     serializer = ProductSerializer(
-    #         products, many=True, context={"request": request}
-    #     )
-    #     return Response(serializer.data)
+        serializer = MagicianServiceSerializer(
+            magicianservices, many=True, context={"request": request}
+        )
+        return Response(serializer.data)

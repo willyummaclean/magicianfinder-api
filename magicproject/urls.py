@@ -14,8 +14,13 @@ router.register(r"users", Users, "user")
 router.register(r"participants", Participants, "participant")
 router.register(r"services", Services, "service")
 router.register(r"magicianservices", MagicianServices, "magicianservice")
+router.register(r"appointments", Appointments, "appointment")
 
 urlpatterns = [
     path('', include(router.urls)),
+    path("admin/", admin.site.urls),
+    path('register', register_user),
+    path('login', login_user),
+    path('current_user', get_current_user),
 ]
 
