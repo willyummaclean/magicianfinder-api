@@ -3,7 +3,7 @@ from .participant import Participant
 from .magicianservice import MagicianService
 
 
-class Appoinment(models.Model):
+class Appointment(models.Model):
 
     customer = models.ForeignKey(
         Participant,
