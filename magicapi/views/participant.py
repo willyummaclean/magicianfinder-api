@@ -54,3 +54,17 @@ class Participants(ViewSet):
 
         serializer = ParticipantSerializer(participants, many=True, context={"request": request})
         return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        """Handle GET requests for single customer
+        Purpose: Allow a user to communicate with the MagicianFinder database to retrieve  one user
+        Methods:  GET
+        Returns:
+            Response -- JSON serialized customer instance
+        """
+        try:
+            participant = Participant.objects.get(pk=pk)
+            serializer = ParticipantSerializer(participant, context={"request": request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return HttpResponseServerError(ex)

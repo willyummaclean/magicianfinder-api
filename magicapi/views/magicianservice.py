@@ -132,7 +132,7 @@ class MagicianServices(ViewSet):
         magicianservices = MagicianService.objects.all()
 
         # Support filtering by category and/or quantity
-        # category = self.request.query_params.get("category", None)
+        magicianId = self.request.query_params.get("magicianId", None)
         # quantity = self.request.query_params.get("quantity", None)
         # order = self.request.query_params.get("order_by", None)
         # direction = self.request.query_params.get("direction", None)
@@ -152,8 +152,8 @@ class MagicianServices(ViewSet):
 
         #     products = products.order_by(order_filter)
 
-        # if category is not None:
-        #     products = products.filter(category__id=category)
+        if magicianId is not None:
+            magicianservices = magicianservices.filter(magician__id=magicianId)
 
         # if quantity is not None:
         #     products = products.order_by("-created_date")[: int(quantity)]
