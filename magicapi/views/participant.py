@@ -43,3 +43,14 @@ class Participants(ViewSet):
         participant.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
+    
+    def list(self, request):
+        """Handle GET requests to user resource"""
+        participants = Participant.objects.all()
+
+        ismagician = self.request.query_params.get("ismagician", None)
+        if ismagician is not None:
+            participants = participants.filter(ismagician=True)
+
+        serializer = ParticipantSerializer(participants, many=True, context={"request": request})
+        return Response(serializer.data)
