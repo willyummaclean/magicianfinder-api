@@ -16,6 +16,15 @@ class ParticipantSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'user', 'ismagician')
         depth = 1
 
+class ParticipantWithUserIdSerializer(serializers.HyperlinkedModelSerializer):
+    """JSON serializer for Participants"""
+    class Meta:
+        model = Participant
+        url = serializers.HyperlinkedIdentityField(
+            view_name='Participant', lookup_field='id'
+        )
+        fields = ('id', 'url', 'user_id', 'ismagician')
+        depth = 1
 
 class Participants(ViewSet):
 
