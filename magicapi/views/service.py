@@ -6,6 +6,8 @@ from rest_framework import status
 from magicapi.models import Service
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
+from magicapi.models.magicianservice import MagicianService
+
 
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
     """JSON serializer for product category"""
@@ -58,3 +60,5 @@ class Services(ViewSet):
            service, many=True, context={"request": request}
         )
         return Response(serializer.data)
+    
+    

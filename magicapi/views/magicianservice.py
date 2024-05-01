@@ -131,57 +131,10 @@ class MagicianServices(ViewSet):
        
         magicianservices = MagicianService.objects.all()
 
-        # Support filtering by category and/or quantity
         magicianId = self.request.query_params.get("magicianId", None)
-        # quantity = self.request.query_params.get("quantity", None)
-        # order = self.request.query_params.get("order_by", None)
-        # direction = self.request.query_params.get("direction", None)
-        # store = self.request.query_params.get("store", None)
-        # number_sold = self.request.query_params.get("number_sold", None)
-        # min_price = self.request.query_params.get("min_price", None)
-        # name = self.request.query_params.get("name", None)
-        # location = self.request.query_params.get("location", None)
-        # customer = self.request.query_params.get("customer", None)
-
-        # if order is not None:
-        #     order_filter = order
-
-        #     if direction is not None:
-        #         if direction == "desc":
-        #             order_filter = f"-{order}"
-
-        #     products = products.order_by(order_filter)
-
+        
         if magicianId is not None:
             magicianservices = magicianservices.filter(magician__id=magicianId)
-
-        # if quantity is not None:
-        #     products = products.order_by("-created_date")[: int(quantity)]
-
-        # if store is not None:
-        #     found_store = Store.objects.get(pk=store)
-        #     products = products.filter(customer=found_store.owner)
-
-        # if number_sold is not None:
-
-        #     def sold_filter(product):
-        #         if product.number_sold >= int(number_sold):
-        #             return True
-        #         return False
-
-        #     products = filter(sold_filter, products)
-
-        # if min_price is not None:
-        #     products = products.filter(price__gte=min_price)
-
-        # if name is not None:
-        #     products = products.filter(name__icontains=name)
-
-        # if location is not None:
-        #     products = products.filter(location__icontains=location)
-
-        # if customer is not None:
-        #     products = products.filter(customer=customer)
 
         serializer = MagicianServiceSerializer(
             magicianservices, many=True, context={"request": request}
