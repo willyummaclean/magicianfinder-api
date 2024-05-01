@@ -14,4 +14,4 @@ class Appointment(models.Model):
         MagicianService,
         on_delete=models.DO_NOTHING,
     )
-    date = models.DateField(default="0000-00-00",)
+    date = models.DateField()
