@@ -68,3 +68,16 @@ class Participants(ViewSet):
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
+    
+    def create(self, request):
+
+        new_participant = Participant()
+        new_participant.user = request.auth.user
+        new_participant.ismagician = request.data["ismagician"]
+        new_participant.save()
+
+        serializer = ParticipantSerializer(
+            new_participant, context={"request": request}
+        )
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
