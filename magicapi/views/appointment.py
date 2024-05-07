@@ -19,11 +19,12 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = (
+            "id",
             "date",
             "customer",
             "magicianService"
         )
-        depth = 1
+        depth = 3
 
 class Appointments(ViewSet):
     """Request handlers for appointments in the MagicianFinder Platform"""
@@ -31,15 +32,15 @@ class Appointments(ViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def create(self, request):
-        
         try:
-            magicianService = MagicianService.objects.get(
-                pk=request.data["magicianService"]
-            )
+            magicianService = MagicianService.objects.get(pk=request.data["magicianService"])
         except MagicianService.DoesNotExist:
-            return Response()
+            return Response({"message": "MagicianService not found."}, status=status.HTTP_404_NOT_FOUND)
 
-        customer = Participant.objects.get(user=request.auth.user)
+        try:
+            customer = Participant.objects.get(user=request.auth.user)
+        except Participant.DoesNotExist:
+            return Response({"message": "Participant not found."}, status=status.HTTP_404_NOT_FOUND)
 
         appointment_data = {
             "date": request.data["date"],
@@ -48,32 +49,21 @@ class Appointments(ViewSet):
         }
 
         serializer = AppointmentSerializer(data=appointment_data, context={"request": request})
-
         if serializer.is_valid():
 
-            new_appointment = Appointment(
-                date=serializer.validated_data["date"],
-                magicianService=magicianService,
-                customer=customer,
-            )
 
+            new_appointment = Appointment()
             customer = Participant.objects.get(user=request.auth.user)
             new_appointment.customer = customer
-
-            magicianService = MagicianService.objects.get(
-                pk=request.data["magicianService"]
-            )
-
+            magicianService = MagicianService.objects.get(pk=request.data["magicianService"])
             new_appointment.magicianService = magicianService
-
+            new_appointment.date = request.data["date"]
+            
             new_appointment.save()
-
             serializer = AppointmentSerializer(new_appointment, context={"request": request})
-
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
 
     def retrieve(self, request, pk=None):
 
@@ -90,12 +80,18 @@ class Appointments(ViewSet):
             appointment = Appointment.objects.get(pk=pk)
             customer = Participant.objects.get(user=request.auth.user)
 
-            if appointment.customer_id == customer.id :
+            if appointment.customer_id == customer.id:
         
                 appointment.delete()
 
                 return Response({}, status=status.HTTP_204_NO_CONTENT)
             
+            elif appointment.magicianService.magician_id == customer.id:
+
+                appointment.delete()
+
+                return Response({}, status=status.HTTP_204_NO_CONTENT)
+
             else:
                 raise PermissionDenied("You are not allowed to delete this service.")
 
@@ -106,3 +102,33 @@ class Appointments(ViewSet):
             return Response(
                 {"message": ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+    
+    def list(self, request):
+
+        appointments = Appointment.objects.all()
+        
+        user = Participant.objects.get(user=request.auth.user)
+        
+        if user.ismagician == False: 
+
+            customerId = user.id
+            
+            if customerId is not None:
+                appointments = appointments.filter(customer_id=customerId)
+
+                serializer = AppointmentSerializer(
+                appointments, many=True, context={"request": request}
+                )
+            return Response(serializer.data)
+        
+        elif user.ismagician == True:
+
+            magicianId = user.id
+
+            if magicianId is not None:
+                appointments = appointments.filter(magicianService__magician=user)
+
+                serializer = AppointmentSerializer(
+                appointments, many=True, context={"request": request}   
+                )
+            return Response(serializer.data)

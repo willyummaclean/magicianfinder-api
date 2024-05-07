@@ -49,6 +49,7 @@ def register_user(request):
     last_name = request.data.get("last_name", None)
     password = request.data.get("password", None)
     is_staff = request.data.get("is_staff", None)
+    is_superuser = request.data.get("is_superuser", None)
 
     if (
         email is not None
@@ -56,6 +57,7 @@ def register_user(request):
         and last_name is not None
         and password is not None
         and  is_staff is not None
+        and is_superuser is not None
     ):
 
         try:
@@ -67,7 +69,8 @@ def register_user(request):
                 password=request.data["password"],
                 first_name=request.data["first_name"],
                 last_name=request.data["last_name"],
-                is_staff=request.data["is_staff"]
+                is_staff=request.data["is_staff"],
+                is_superuser = request.data["is_superuser"]
             )
         except IntegrityError:
             return Response(
