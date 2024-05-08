@@ -67,7 +67,9 @@ https://www.loom.com/share/6b3c9675eb9a44c8b4c7dbf51a835ed4?sid=1b268f8a-9bd2-42
 ### Built With
 
 
-*  [![Python](https://www.python.org/static/community_logos/python-logo.png)](https://www.python.org/) [![Django](https://www.djangoproject.com/s/img/logos/django-logo-negative.png)](https://www.djangoproject.com/)
+*  [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+*  [![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
