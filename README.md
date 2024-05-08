@@ -55,7 +55,7 @@
 
 
 
-It's a tough world out there for magician's trying to get exposure and the same goes for event-planners trying to hire magician talent. That's where Magician Finder comes in; its a prototype for a website that allows magician's to offer their services and event-planners to book appointments based on the services they need. Here a magician user can Create, Read, Update or delete their services, while a client user can Create, Read or Delete their appointments. 
+It's a tough world out there for magician's trying to get exposure and the same goes for event-planners trying to hire magician talent. That's where Magician Finder comes in; its a prototype for a website that allows magicians to offer their services and event-planners to book appointments based on the services they need. Here a magician user can Create, Read, Update or delete their services, while a client user can Create, Read or Delete their appointments. 
 
 Demo created with Loom:
 https://www.loom.com/share/6b3c9675eb9a44c8b4c7dbf51a835ed4?sid=1b268f8a-9bd2-4213-a719-cbd3c8d2a550
